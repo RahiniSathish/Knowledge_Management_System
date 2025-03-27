@@ -1,7 +1,4 @@
 from database import get_db_connection
-
-# -------------------- Knowledge CRUD --------------------
-
 def create_knowledge(name: str, etc: str):
     with get_db_connection() as conn:
         cursor = conn.cursor()
@@ -21,16 +18,12 @@ def delete_knowledge(knowledge_id: int):
         cursor.execute("DELETE FROM knowledge WHERE id = ?", (knowledge_id,))
         conn.commit()
 
-# -------------------- Document CRUD --------------------
-
 def add_document(knowledge_id: int, filename: str, content: str):
     with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("INSERT INTO document (knowledge_id, filename, content) VALUES (?, ?, ?)",
                        (knowledge_id, filename, content))
         conn.commit()
-
-# -------------------- Query Documents --------------------
 
 def query_documents(knowledge_name: str, question: str):
     with get_db_connection() as conn:
